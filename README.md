@@ -54,6 +54,7 @@ allprojects {
                 .authenticate(biometricCallback);
 ```
 
+#Attributes
 ```
   SetScreen("center") ||  SetScreen("bottom") || SetScreen("fullscreen")  -> For changing position of fingerprint dialog
   
