@@ -3,6 +3,7 @@ package com.thul.samplebiometric
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import com.thul.biometriclibrary.BiometricCallback
 import com.thul.biometriclibrary.BiometricManager
 
@@ -19,12 +20,12 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
 
         tv_fingerprint?.setOnClickListener {
             mBiometricManager = BiometricManager.BiometricBuilder(this@MainActivity)
-                .setTitle("My App")
-                .setScreen("center") // fullscreen || bottom || center
-                  .setTitleBarText(true) // set true if titlebar recquired
-                .setSubtitle("Enter My App")
-                .setDescription("Confirm fingerprint to continue")
-                .setNegativeButtonText("CANCEL")
+                .setTitle(resources.getString(R.string.biometric_title))
+                .setScreen(resources.getString(R.string.biometric_screen_center)) // fullscreen || bottom || center
+//                  .setTitleBarText(false) // set true if titlebar recquired
+                .setSubtitle(resources.getString(R.string.biometric_subtitle))
+                .setDescription(resources.getString(R.string.biometric_description))
+                .setNegativeButtonText(resources.getString(R.string.cancel_button))
                 .build()
 
             mBiometricManager!!.authenticate(this@MainActivity)
@@ -32,43 +33,44 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
 
     }
 
-    override fun onAuthenticationCancelled() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onAuthenticationFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onAuthenticationSuccessful() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onBiometricAuthenticationInternalError(error: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onBiometricAuthenticationNotAvailable() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onSdkVersionNotSupported() {
+        Toast.makeText(applicationContext, getString(R.string.biometric_sdk_not_supported), Toast.LENGTH_LONG).show()
     }
 
     override fun onBiometricAuthenticationNotSupported() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(applicationContext, getString(R.string.biometric_hardware_not_supported), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onBiometricAuthenticationNotAvailable() {
+        Toast.makeText(applicationContext, getString(R.string.biometric_fingerprint_not_available), Toast.LENGTH_LONG).show()
     }
 
     override fun onBiometricAuthenticationPermissionNotGranted() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(applicationContext, getString(R.string.biometric_permission_not_granted), Toast.LENGTH_LONG).show()
     }
 
-    override fun onSdkVersionNotSupported() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onBiometricAuthenticationInternalError(error: String?) {
+        Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onAuthenticationFailed() {
+                Toast.makeText(getApplicationContext(), getString(R.string.biometric_failure), Toast.LENGTH_LONG).show();
+    }
+
+    override fun onAuthenticationCancelled() {
+        Toast.makeText(applicationContext, getString(R.string.biometric_cancelled), Toast.LENGTH_LONG).show()
+        mBiometricManager!!.cancelAuthentication()
+    }
+
+    override fun onAuthenticationSuccessful() {
+        Toast.makeText(applicationContext, getString(R.string.biometric_success), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
+                Toast.makeText(getApplicationContext(), helpString, Toast.LENGTH_LONG).show();
+    }
+
+    override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+        Toast.makeText(applicationContext, errString, Toast.LENGTH_LONG).show()
     }
 }
