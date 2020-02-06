@@ -2,7 +2,7 @@
 Biometric Authentication verification to any Android application</br>
 
 
-<p><a href="https://github.com/anitaa1990/Biometric-Auth-Sample/blob/master/media/1.png" target="_blank"><img src="https://github.com/anitaa1990/Biometric-Auth-Sample/blob/master/media/1.png" width="250" style="max-width:100%;"></a></p>
+<p><a href="https://github.com/thulasiram-sarathy/Biometric-Auth-Login/blob/master/screenshots/biometric.png" target="_blank"><img src="https://github.com/thulasiram-sarathy/Biometric-Auth-Login/blob/master/screenshots/biometric.png" width="250" style="max-width:100%;"></a></p>
 </br></br></br>
 
 
